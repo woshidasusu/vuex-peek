@@ -1,6 +1,11 @@
+<!--
+ * @Author: suxq01
+ * @Date: 2020-08-17 16:07:24
+ * @LastEditors: suxq01
+ * @LastEditTime: 2020-08-18 10:15:17
+ * @FilePath: \vuex-peek\README.md
+-->
 # vue-peek README
-
-This is the README for your extension "vue-peek". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

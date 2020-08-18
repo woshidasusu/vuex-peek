@@ -1,6 +1,7 @@
 {
   "name": "vuex-peek",
   "displayName": "vuex-peek",
+  "publisher": "suxq",
   "description": "vuex peek",
   "version": "0.0.1",
   "engines": {
