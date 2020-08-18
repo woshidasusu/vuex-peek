@@ -3,7 +3,7 @@
   "displayName": "vuex-peek",
   "publisher": "suxq",
   "description": "vuex peek",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.48.0"
   },
@@ -11,7 +11,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vuex.store",
+    "onCommand:vuex.goto-store",
+    "onCommand:vuex.update-store",
     "onLanguage:vue",
     "onLanguage:javascript"
   ],
@@ -19,8 +20,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "vuex.store",
+        "command": "vuex.goto-store",
         "title": "Go to vuex store"
+      },
+      {
+        "command": "vuex.update-store",
+        "title": "Update vuex store"
       }
     ],
     "menus": {

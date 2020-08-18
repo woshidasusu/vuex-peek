@@ -1,8 +1,16 @@
 # Change Log
 
-All notable changes to the "vue-peek" extension will be documented in this file.
+## v0.0.2
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+### fix
+
+1. 增加 update vuex store 命令，解决新编写的 store 代码无法被识别问题
+
+## v0.0.1
+
+### feature
+
+1. 新增 vuex peek 插件
 
 ## [Unreleased]
 

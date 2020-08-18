@@ -99,8 +99,18 @@ export function activate(context: vscode.ExtensionContext) {
   // 命令
   context.subscriptions.push(
     vscode.commands.registerTextEditorCommand(
-      "vuex.store",
+      "vuex.goto-store",
       onVuexStoreCommandExec
+    )
+  );
+
+  // 命令
+  context.subscriptions.push(
+    vscode.commands.registerTextEditorCommand(
+      "vuex.update-store",
+      function() {
+        fileDisplay(STORE_PATH);
+      }
     )
   );
 
