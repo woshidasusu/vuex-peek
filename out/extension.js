@@ -129,8 +129,18 @@ function provideDefinition(document, position, token) {
     console.log("word: " + word); // 当前光标所在单词
     console.log("line: " + line.lineNumber, line.firstNonWhitespaceCharacterIndex); // 当前光标所在行
     console.log("document: " + document.languageId); // 当前文件类型
+    let hasUsedStoreFlag = "";
     if (document.languageId === "vue") {
         // vue 里面通过是否有 statesToComputed() 来决定变量名是否是 store 里声明的，再提供跳转
+        hasUsedStoreFlag = ".statesToComputed";
+    }
+    else if (document.languageId === "javascript") {
+        // js 文件里通过  state(). 访问的变量才提供跳转
+        if (line.text.indexOf(".state().") !== -1) {
+            hasUsedStoreFlag = ".state().";
+        }
+    }
+    if (hasUsedStoreFlag) {
         if (CACHE_PARSED_WORD[fileName + word]) {
             return new vscode.Location(vscode.Uri.file(CACHE_PARSED_WORD[fileName + word].path), new vscode.Position(CACHE_PARSED_WORD[fileName + word].row, 0));
         }
@@ -140,7 +150,7 @@ function provideDefinition(document, position, token) {
             col = CACHE_PARSED_FILE[fileName].col;
         }
         else {
-            let o = util_1.default.findStrInFile(fileName, ".statesToComputed");
+            let o = util_1.default.findStrInFile(fileName, hasUsedStoreFlag);
             row = o.row;
             col = o.col;
             CACHE_PARSED_FILE[fileName] = { row, col };
@@ -165,24 +175,13 @@ function provideDefinition(document, position, token) {
             }
         }
     }
-    else if (document.languageId === "javascript") {
-        // TODO
-        // js 文件里通过是否有  state() 来决定变量名是否是 store 里声明的，再提供跳转
-    }
-    return null;
-}
-/**
- * 光标选中当前自动补全item时触发动作，一般情况下无需处理
- */
-function resolveCompletionItem(item, token) {
     return null;
 }
 function provideHover(document, position, token) {
     console.log("ctrl + mouse hover: show tip");
     const fileName = document.fileName;
     const word = document.getText(document.getWordRangeAtPosition(position));
-    if (document.languageId === "vue") {
-        // vue 里面通过是否有 statesToComputed() 来决定变量名是否是 store 里声明的，再提供跳转
+    if (document.languageId === "vue" || document.languageId === "javascript") {
         if (CACHE_PARSED_WORD[fileName + word]) {
             let tooltip = {
                 language: "html",
@@ -190,9 +189,6 @@ function provideHover(document, position, token) {
             };
             return new vscode.Hover(tooltip);
         }
-    }
-    else if (document.languageId === "javascript") {
-        // js 文件里通过是否有  state() 来决定变量名是否是 store 里声明的，再提供跳转
     }
     return null;
 }
