@@ -87,7 +87,11 @@ function activate(context) {
     console.log("plugin init: vuex-peek");
     fileDisplay(STORE_PATH);
     // 命令
-    context.subscriptions.push(vscode.commands.registerTextEditorCommand("vuex.store", onVuexStoreCommandExec));
+    context.subscriptions.push(vscode.commands.registerTextEditorCommand("vuex.goto-store", onVuexStoreCommandExec));
+    // 命令
+    context.subscriptions.push(vscode.commands.registerTextEditorCommand("vuex.update-store", function () {
+        fileDisplay(STORE_PATH);
+    }));
     // 文件跳转
     context.subscriptions.push(vscode.languages.registerDefinitionProvider(["vue", "javascript"], {
         provideDefinition,
