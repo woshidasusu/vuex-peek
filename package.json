@@ -3,7 +3,7 @@
   "displayName": "vuex-peek",
   "publisher": "suxq",
   "description": "vuex peek",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.48.0"
   },
@@ -32,7 +32,12 @@
       "editor/context": [
         {
           "when": "editorFocus && editorHasSelection && resourceLangId == vue",
-          "command": "vuex.store",
+          "command": "vuex.goto-store",
+          "group": "navigation"
+        },
+        {
+          "when": "editorFocus && editorHasSelection && resourceLangId == vue",
+          "command": "vuex.update-store",
           "group": "navigation"
         }
       ]
