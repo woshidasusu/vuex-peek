@@ -94,24 +94,23 @@ function fileDisplay(filePath: string) {
 
 let isInitStoreInfo = false;
 function updateStoreInfos(refresh = false) {
-  if (!isInitStoreInfo || refresh) {
+  let document = vscode.window.activeTextEditor?.document;
+  if ((!isInitStoreInfo || refresh) && document) {
     isInitStoreInfo = true;
     let projectPath = "";
-    let document = vscode.window.activeTextEditor?.document;
 
-    if (vscode.workspace.workspaceFolders && document) {
+    if (vscode.workspace.workspaceFolders) {
       let workspaceFold = vscode.workspace.workspaceFolders.find((x) =>
         document?.uri.path.startsWith(x.uri.path)
       );
       projectPath = workspaceFold?.uri.path || "";
     }
-    console.log(projectPath);
     if (projectPath.startsWith('/')) {
-      
+      projectPath = projectPath.substr(1);
     }
+    console.log(projectPath);
     vscode.window.showInformationMessage('正在解析 store 目录下的代码：' + projectPath + STORE_PATH);
     fileDisplay(projectPath + STORE_PATH);
-
   }
 }
 
@@ -131,7 +130,8 @@ export function activate(context: vscode.ExtensionContext) {
   // 命令
   context.subscriptions.push(
     vscode.commands.registerTextEditorCommand("vuex.update-store", function () {
-      fileDisplay(STORE_PATH);
+      vscode.window.showInformationMessage(JSON.stringify(STORE_PATH_MAP, null, 2));
+      updateStoreInfos(true);
     })
   );
 
@@ -169,7 +169,7 @@ function onVuexStoreCommandExec(
     vscode.window.showTextDocument(vscode.Uri.file(find.path));
   } else {
     vscode.window.showInformationMessage(
-      "请先通过 ctrl + 鼠标左键来解析变量 " + word
+      "请先执行 update vuex store 解析 store 代码"
     );
   }
 }
@@ -183,6 +183,7 @@ function provideDefinition(
   token: CancellationToken
 ) {
   console.log("============ctrl + mouse click: Go to definition=============");
+  updateStoreInfos(true);
   const fileName = document.fileName;
   const workDir = path.dirname(fileName);
   const word = document.getText(document.getWordRangeAtPosition(position));

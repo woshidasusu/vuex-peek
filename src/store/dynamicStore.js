@@ -1,5 +1,5 @@
 import store from './index';
-import demo from './demo';
+import demo from 'dynamic/demo';
 import { storeToComputed } from './storeToComputed';
 
 const KEY_DEMO = 'demo';
@@ -46,6 +46,6 @@ const generateStoreOperate = (moduleName, moduleStore) => {
 export default {
   demo: {
     // demo
-    ...generateStoreOperate(DELIVERY_DATA_SUMMARY, dataSummary),
+    ...generateStoreOperate(DELIVERY_DATA_SUMMARY, demo),
   },
 };
