@@ -13,7 +13,8 @@ import * as readline from "readline";
 import * as os from "os";
 
 // FIXME 暂时写死
-const STORE_PATH = "D:/codes/yf/yffrontend/src/store/dynamic/";
+const STORE_PATH = "/src/store/dynamic/";
+
 // 缓存已解析过的文件
 const CACHE_PARSED_FILE: { [key: string]: { row: any; col: any } } = {};
 // 缓存已解析过的变量
@@ -91,10 +92,33 @@ function fileDisplay(filePath: string) {
   });
 }
 
+let isInitStoreInfo = false;
+function updateStoreInfos(refresh = false) {
+  if (!isInitStoreInfo || refresh) {
+    isInitStoreInfo = true;
+    let projectPath = "";
+    let document = vscode.window.activeTextEditor?.document;
+
+    if (vscode.workspace.workspaceFolders && document) {
+      let workspaceFold = vscode.workspace.workspaceFolders.find((x) =>
+        document?.uri.path.startsWith(x.uri.path)
+      );
+      projectPath = workspaceFold?.uri.path || "";
+    }
+    console.log(projectPath);
+    if (projectPath.startsWith('/')) {
+      
+    }
+    vscode.window.showInformationMessage('正在解析 store 目录下的代码：' + projectPath + STORE_PATH);
+    fileDisplay(projectPath + STORE_PATH);
+
+  }
+}
+
 // 插件被激活时调用
 export function activate(context: vscode.ExtensionContext) {
   console.log("plugin init: vuex-peek");
-  fileDisplay(STORE_PATH);
+  updateStoreInfos();
 
   // 命令
   context.subscriptions.push(
@@ -106,12 +130,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   // 命令
   context.subscriptions.push(
-    vscode.commands.registerTextEditorCommand(
-      "vuex.update-store",
-      function() {
-        fileDisplay(STORE_PATH);
-      }
-    )
+    vscode.commands.registerTextEditorCommand("vuex.update-store", function () {
+      fileDisplay(STORE_PATH);
+    })
   );
 
   // 文件跳转
