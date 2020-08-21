@@ -109,8 +109,8 @@ function activate(context) {
     context.subscriptions.push(vscode.commands.registerTextEditorCommand("vuex.goto-store", onVuexStoreCommandExec));
     // 命令
     context.subscriptions.push(vscode.commands.registerTextEditorCommand("vuex.update-store", function () {
-        updateStoreInfos(true);
         vscode.window.showInformationMessage(JSON.stringify(STORE_PATH_MAP, null, 2));
+        updateStoreInfos(true);
     }));
     // 文件跳转
     context.subscriptions.push(vscode.languages.registerDefinitionProvider(["vue", "javascript"], {

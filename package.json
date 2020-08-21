@@ -3,7 +3,8 @@
   "displayName": "vuex-peek",
   "publisher": "suxq",
   "description": "vuex peek",
-  "version": "0.0.3",
+  "repository": "https://github.com/woshidasusu/vuex-peek",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.48.0"
   },

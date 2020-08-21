@@ -44,3 +44,8 @@ computed: {
 1. 发布 vuex peek
 
 **Enjoy!**
+
+## 打包
+
+vsce package
+
