@@ -143,12 +143,11 @@ function onVuexStoreCommandExec(textEditor, edit, ...args) {
  */
 function provideDefinition(document, position, token) {
     console.log("============ctrl + mouse click: Go to definition=============");
-    updateStoreInfos(true);
     const fileName = document.fileName;
     const workDir = path.dirname(fileName);
     const word = document.getText(document.getWordRangeAtPosition(position));
     const line = document.lineAt(position);
-    console.log("store", STORE_PATH_MAP, CACHE_PARSED_WORD, CACHE_PARSED_FILE);
+    console.log("store", STORE_PATH_MAP, CACHE_PARSED_WORD);
     console.log("fileName: " + fileName); // 当前文件完整路径
     console.log("workDir: " + workDir); // 当前文件所在目录
     console.log("word: " + word); // 当前光标所在单词
@@ -169,17 +168,7 @@ function provideDefinition(document, position, token) {
         if (CACHE_PARSED_WORD[fileName + word]) {
             return new vscode.Location(vscode.Uri.file(CACHE_PARSED_WORD[fileName + word].path), new vscode.Position(CACHE_PARSED_WORD[fileName + word].row, 0));
         }
-        let row = 0, col = 0;
-        if (CACHE_PARSED_FILE[fileName]) {
-            row = CACHE_PARSED_FILE[fileName].row;
-            col = CACHE_PARSED_FILE[fileName].col;
-        }
-        else {
-            let o = util_1.default.findStrInFile(fileName, hasUsedStoreFlag);
-            row = o.row;
-            col = o.col;
-            CACHE_PARSED_FILE[fileName] = { row, col };
-        }
+        let { row, col } = util_1.default.findStrInFile(fileName, hasUsedStoreFlag);
         if (row > 0 && col > 0) {
             let line = document.lineAt(row);
             let _text = line.text.substring(0, col);

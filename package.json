@@ -4,7 +4,7 @@
   "publisher": "suxq",
   "description": "vuex peek",
   "repository": "https://github.com/woshidasusu/vuex-peek",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.48.0"
   },
