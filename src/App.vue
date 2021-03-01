@@ -11,6 +11,7 @@ export default {
     return {};
   },
   computed: {
+    // 映射 this.$store.demo.xxx => this.xxx
     ...dynamicStore.demo.statesToComputed("count", "page"),
   },
   created() {

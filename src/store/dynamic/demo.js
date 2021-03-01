@@ -1,7 +1,4 @@
 import { generateMutationsByState } from "./helper";
-/**
- * 动态注册，动态销毁，store 属于模块内单例
- */
 
 const state = () => {
   return {
@@ -14,6 +11,7 @@ const state = () => {
 const getters = {};
 
 const mutations = {
+  // 自动生成 updateXXX 方法
   ...generateMutationsByState(state())
 };
 

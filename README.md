@@ -28,6 +28,7 @@ const state = () => {
   
 ```javascript
 computed: {
+    // 映射 this.$store.demo.xxx => this.xxx
     ...dynamicStore.demo.statesToComputed([
       'searchParams',
       'searchParams.projectId',
@@ -36,6 +37,9 @@ computed: {
     ]),
 }
 ```
+
+![](demo.gif)  
+
 
 ## Release Notes
 
