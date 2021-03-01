@@ -46,6 +46,6 @@ const generateStoreOperate = (moduleName, moduleStore) => {
 export default {
   demo: {
     // demo
-    ...generateStoreOperate(DELIVERY_DATA_SUMMARY, demo),
+    ...generateStoreOperate(KEY_DEMO, demo),
   },
 };

@@ -1,4 +1,4 @@
-import { generateMutationsByState } from './helper';
+import { generateMutationsByState } from "./helper";
 /**
  * 动态注册，动态销毁，store 属于模块内单例
  */
@@ -7,13 +7,14 @@ const state = () => {
   return {
     data: 1,
     page: 1,
+    count: 1
   };
 };
 
 const getters = {};
 
 const mutations = {
-  ...generateMutationsByState(state()),
+  ...generateMutationsByState(state())
 };
 
 const actions = {};
@@ -23,5 +24,5 @@ export default {
   state,
   getters,
   mutations,
-  actions,
+  actions
 };
